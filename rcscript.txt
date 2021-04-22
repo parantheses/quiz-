@@ -1,0 +1,33 @@
+#!/bin/sh
+
+. /etc/init.d
+
+[ -f C:/Users/днс/Desktop/scripts/rcscript.sh ] || exit 0
+
+case "$1" in
+
+        start)
+                echo "script started...."
+                C:/Users/днс/Desktop/scripts/rcscript.sh &
+                echo "--------------------"
+                touch C:/Users/днс/Desktop/scripts/rcscript
+                ;;
+        stop)
+                echo -n "stopping"
+                killall -q -9 taskrc.sh &
+                rm -f C:/Users/днс/Desktop/scripts/rcscript
+                ;;
+        status)
+                status taskrc
+                ;;
+        restart|reload)
+                $0 stop
+                $0 start
+                ;;
+        *)
+                echo "start, stop, restart|reload, status"
+                exit 1
+esac
+
+exit 0
+
